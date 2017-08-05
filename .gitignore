@@ -1,5 +1,5 @@
 
 /vendor
 config.php
-/logs/app.log
+src/logs/app.log
 composer.lock
