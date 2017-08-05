@@ -1,4 +1,0 @@
-[2017-08-05 13:06:01] experimentalism.INFO: query: SELECT 'Something sweet' ~~ given result: {"queryString":"SELECT 'Something sweet'"} [] []
-[2017-08-05 13:07:46] experimentalism.INFO: query: SELECT 'Something sweet' ~~ given result: {"queryString":"SELECT 'Something sweet'"} [] []
-[2017-08-05 13:12:01] experimentalism.INFO: query: SELECT 'Something sweet' ~~ given result: {"queryString":"SELECT 'Something sweet'"} [] []
-[2017-08-05 13:17:46] experimentalism.INFO: query: SELECT 'Something sweet' ~~ given result: {"queryString":"SELECT 'Something sweet'"} [] []
