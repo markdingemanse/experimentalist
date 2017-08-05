@@ -1,2 +1,1 @@
-RewriteRule ^http://experimental.beyondlove.nl/$ http://experimental.beyondlove.nl/src/public [R=301,L]
-RewriteRule ^https://experimental.beyondlove.nl/$ https://experimental.beyondlove.nl/src/public [R=301,L]
+DirectoryIndex src/public/index.php
