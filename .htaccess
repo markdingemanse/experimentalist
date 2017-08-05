@@ -1,0 +1,1 @@
+RewriteRule ^experimental.beyondlove.nl$ experimental.beyondlove.nl/src/public [R=301,L]
