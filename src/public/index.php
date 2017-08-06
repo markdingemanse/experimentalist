@@ -2,36 +2,38 @@
 
 namespace MarkDingemanse\Experimentalism\Slim;
 
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
-use \Slim\App;
-use \Monolog\Logger;
-use \Monolog\Handler\StreamHandler;
+use Dotenv\Dotenv;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use PDO;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use RuntimeException;
+use Slim\App;
 
 require '../../vendor/autoload.php';
-require '../../config.php';
 
-$app = new App(["settings" => $config]);
+$config = new Dotenv(__DIR__ . '/../../');
+$config->load();
+
+$app = new App();
 $container = $app->getContainer();
 
-$container['logger'] = function($config) {
-    $logger = new Logger($config['settings']['name']);
-    $file_handler = new StreamHandler($config['settings']['loguri']);
+$container['logger'] = function() {
+    $logger = new Logger(getenv('logname'));
+    $file_handler = new StreamHandler(getenv('loguri'));
     $logger->pushHandler($file_handler);
 
     return $logger;
 };
 
-$container['db'] = function ($config) {
-    $db = $config['settings']['db'];
-    $host = $db['host'];
-    $dbname = $db['dbname'];
+$container['db'] = function () {
+    $host = getenv('host');
+    $dbname = getenv('dbname');
     $dsn = "mysql:dbname=$dbname;host=$host";
 
     try {
-        $pdo = new PDO($dsn, $db['user'], $db['pass']);
+        $pdo = new PDO($dsn, getenv('user'), getenv('pass'));
 
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -45,8 +47,8 @@ $container['db'] = function ($config) {
 
 };
 
-$app->get('/', function (Request $request, Response $response) use ($config){
-    $query = $config['experimentalism']['query'];
+$app->get('/', function (Request $request, Response $response) {
+    $query = getenv('query');
     $result = $this->db->query($query);
 
     $this->logger->addInfo('query: ' . $query . " ~~ given result: " . json_encode($result));
