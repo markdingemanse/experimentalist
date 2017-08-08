@@ -21,47 +21,32 @@ try {
 
     return $pdo;
 } catch (Exception $e) {
-    $this->logger->addInfo($e);
     new RuntimeException('something went wrong while instantiating a PDO instance please check the experimentalist Log for more information', 0);
 }
 
 $query = $query;
 $result = $this->db->query($query);
 
-$this->logger->addInfo('query: ' . $query . " ~~ given result: " . json_encode($result));
-
-display_data($result);
-
-/**
- * generic function for printing a table
- *
- * @param  array
- *
- * @return void
- */
-function display_data($data)
-{
-    $output = "<table>";
-    foreach ($data as $key => $var) {
-        if ($key===0) {
-            $output .= '<tr>';
-            foreach ($var as $col => $val) {
-                $output .= "<td>" . $col . '</td>';
-            }
-            $output .= '</tr>';
-            foreach ($var as $col => $val) {
-                $output .= '<td>' . $val . '</td>';
-            }
-            $output .= '</tr>';
-        } else {
-            $output .= '<tr>';
-            foreach ($var as $col => $val) {
-                $output .= '<td>' . $val . '</td>';
-            }
-            $output .= '</tr>';
+$output = "<table>";
+foreach ($data as $key => $var) {
+    if ($key===0) {
+        $output .= '<tr>';
+        foreach ($var as $col => $val) {
+            $output .= "<td>" . $col . '</td>';
         }
+        $output .= '</tr>';
+        foreach ($var as $col => $val) {
+            $output .= '<td>' . $val . '</td>';
+        }
+        $output .= '</tr>';
+    } else {
+        $output .= '<tr>';
+        foreach ($var as $col => $val) {
+            $output .= '<td>' . $val . '</td>';
+        }
+        $output .= '</tr>';
     }
-
-    $output .= '</table>';
-    echo $output;
 }
+
+$output .= '</table>';
+echo $output;
