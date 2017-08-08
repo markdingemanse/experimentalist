@@ -1,3 +1,1 @@
-copy .env.example to .env and change to your needs
-
-run composer install
+fill in the vars in the index.php and you're good to go
